@@ -1,0 +1,1526 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VidyaPath • Hindi & Sanskrit Courses (Class 6–10)</title>
+  <meta name="description" content="Culturally-inspired modern learning platform for Hindi & Sanskrit courses for Class 6–10, taught by an experienced teacher." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <style>
+    :root{
+      --bg: #0b0a08;
+      --paper: #12100c;
+      --ink: #f6f1e3;
+      --muted: rgba(246,241,227,.72);
+      --brand: #d8a33b;      /* gold */
+      --brand2:#c2410c;      /* terracotta */
+      --brand3:#0ea5a2;      /* teal accent */
+      --ring: rgba(216,163,59,.35);
+
+      --shadow: 0 24px 80px rgba(0,0,0,.55);
+    }
+
+    html{scroll-behavior:smooth;}
+    body{
+      background: radial-gradient(1200px 800px at 20% 10%, rgba(216,163,59,.18), transparent 60%),
+                  radial-gradient(900px 650px at 85% 20%, rgba(14,165,162,.14), transparent 55%),
+                  radial-gradient(1000px 750px at 60% 95%, rgba(194,65,12,.16), transparent 60%),
+                  linear-gradient(180deg, #090806, #0b0a08 35%, #0b0a08);
+      color: var(--ink);
+    }
+
+    /* Subtle “jāli” lattice overlay */
+    .jali{
+      position: relative;
+      isolation:isolate;
+    }
+    .jali::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      pointer-events:none;
+      z-index:-1;
+      opacity:.22;
+      background:
+        radial-gradient(circle at 8px 8px, rgba(216,163,59,.18) 2px, transparent 2.2px) 0 0/16px 16px,
+        radial-gradient(circle at 8px 8px, rgba(246,241,227,.08) 2px, transparent 2.2px) 8px 8px/16px 16px;
+      mask-image: radial-gradient(circle at 50% 20%, black 0%, black 55%, transparent 80%);
+    }
+
+    /* Ornamental divider */
+    .divider{
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(216,163,59,.65), rgba(14,165,162,.45), rgba(216,163,59,.65), transparent);
+    }
+
+    /* Animated conic aura */
+    .aura{
+      position:absolute;
+      inset:-40px;
+      border-radius: 999px;
+      background: conic-gradient(from 180deg, rgba(216,163,59,.0), rgba(216,163,59,.25), rgba(14,165,162,.18), rgba(194,65,12,.20), rgba(216,163,59,.0));
+      filter: blur(22px);
+      opacity:.55;
+      animation: slowspin 18s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes slowspin{to{transform:rotate(360deg)}}
+
+    /* Floating motif */
+    @keyframes floaty{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-10px)}
+    }
+    .floaty{animation: floaty 6s ease-in-out infinite;}
+
+    /* Glass card */
+    .glass{
+      background: linear-gradient(180deg, rgba(18,16,12,.72), rgba(18,16,12,.50));
+      border: 1px solid rgba(216,163,59,.22);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.55rem;
+      border-radius: 9999px;
+      padding: .8rem 1.1rem;
+      font-weight: 650;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+    .btn:active{transform: translateY(1px) scale(.99)}
+    .btn-primary{
+      background: linear-gradient(90deg, rgba(216,163,59,.95), rgba(194,65,12,.92));
+      color: #1b1206;
+      box-shadow: 0 14px 40px rgba(216,163,59,.18), 0 10px 30px rgba(194,65,12,.12);
+    }
+    .btn-primary:hover{box-shadow: 0 18px 54px rgba(216,163,59,.22), 0 12px 40px rgba(194,65,12,.18)}
+    .btn-ghost{
+      background: rgba(246,241,227,.06);
+      border: 1px solid rgba(246,241,227,.16);
+      color: var(--ink);
+    }
+    .btn-ghost:hover{background: rgba(246,241,227,.09)}
+
+    /* Nav link underline */
+    .navlink{
+      position:relative;
+      padding: .55rem .75rem;
+      border-radius: 9999px;
+      color: rgba(246,241,227,.88);
+      transition: background .15s ease, color .15s ease;
+    }
+    .navlink:hover{background: rgba(246,241,227,.08); color: rgba(246,241,227,1)}
+    .navlink.active{background: rgba(216,163,59,.14); border: 1px solid rgba(216,163,59,.25)}
+
+    /* Reveal on scroll */
+    .reveal{opacity:0; transform: translateY(10px); transition: opacity .7s ease, transform .7s ease;}
+    .reveal.show{opacity:1; transform:none;}
+
+    /* Video / Lesson protection UI */
+    video::-internal-media-controls-download-button { display:none; }
+    video::-webkit-media-controls-enclosure { overflow:hidden; }
+    video::-webkit-media-controls-panel { width: calc(100% + 30px); }
+
+    /* Chat bubble */
+    .chat-shadow{box-shadow: 0 18px 60px rgba(0,0,0,.5)}
+
+    /* Selection deterrence (soft) */
+    .noselect{user-select:none; -webkit-user-select:none;}
+
+    /* Focus */
+    :focus-visible{outline: 2px solid rgba(216,163,59,.65); outline-offset: 2px;}
+  </style>
+</head>
+
+<body class="min-h-screen">
+  <!-- Top decorative strip -->
+  <div class="h-1 w-full" style="background: linear-gradient(90deg, rgba(216,163,59,.0), rgba(216,163,59,.9), rgba(14,165,162,.8), rgba(194,65,12,.85), rgba(216,163,59,.0));"></div>
+
+  <!-- Header / Nav -->
+  <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-black/30" aria-label="Primary">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between py-3">
+        <a href="#home" class="flex items-center gap-3 group">
+          <div class="relative">
+            <div class="absolute -inset-3 rounded-full blur-xl opacity-40" style="background: radial-gradient(circle, rgba(216,163,59,.40), transparent 60%);"></div>
+            <div class="relative size-10 rounded-full grid place-items-center border" style="border-color: rgba(216,163,59,.35); background: rgba(18,16,12,.6);">
+              <span class="text-lg" aria-hidden="true">ॐ</span>
+            </div>
+          </div>
+          <div class="leading-tight">
+            <div class="font-semibold tracking-wide">VidyaPath</div>
+            <div class="text-xs" style="color: var(--muted);">Hindi • Sanskrit • Class 6–10</div>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1" aria-label="Site">
+          <a class="navlink" href="#home" data-route>Home</a>
+          <a class="navlink" href="#courses" data-route>Courses</a>
+          <a class="navlink" href="#about" data-route>About</a>
+          <a class="navlink" href="#contact" data-route>Contact</a>
+          <button id="openCartBtn" class="ml-2 btn btn-ghost" type="button" aria-haspopup="dialog" aria-controls="cartDialog">
+            <span aria-hidden="true">🛒</span>
+            <span class="text-sm">Cart</span>
+            <span id="cartCount" class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(216,163,59,.18); border: 1px solid rgba(216,163,59,.25);">0</span>
+          </button>
+        </nav>
+
+        <div class="md:hidden flex items-center gap-2">
+          <button id="mobileCartBtn" class="btn btn-ghost" type="button" aria-haspopup="dialog" aria-controls="cartDialog">🛒 <span id="cartCount2">0</span></button>
+          <button id="menuBtn" class="btn btn-ghost" type="button" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="md:hidden hidden pb-3">
+        <div class="glass rounded-2xl p-3 flex flex-col gap-1">
+          <a class="navlink" href="#home" data-route>Home</a>
+          <a class="navlink" href="#courses" data-route>Courses</a>
+          <a class="navlink" href="#about" data-route>About</a>
+          <a class="navlink" href="#contact" data-route>Contact</a>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- HERO / HOME -->
+    <section id="home" class="jali relative pt-10 sm:pt-14 pb-10 sm:pb-16">
+      <div class="absolute inset-0 -z-10">
+        <div class="aura"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border" style="border-color: rgba(216,163,59,.25); background: rgba(18,16,12,.45);">
+            <span class="text-xs" style="color: var(--muted);">Wisdom of Ancient India • Modern Learning</span>
+            <span class="text-xs px-2 py-0.5 rounded-full" style="background: rgba(14,165,162,.14); border: 1px solid rgba(14,165,162,.25);">New</span>
+          </div>
+
+          <h1 class="mt-4 text-4xl sm:text-5xl leading-[1.05] font-semibold tracking-tight reveal">
+            Learn <span style="color: rgba(216,163,59,.95)">Hindi</span> & <span style="color: rgba(14,165,162,.9)">Sanskrit</span>
+            with clarity, confidence & संस्कार
+          </h1>
+          <p class="mt-4 text-base sm:text-lg max-w-2xl reveal" style="color: var(--muted);">
+            Courses crafted for <span class="text-white/90">Class 6–10</span> students—grammar, literature, writing, exam preparation, and concept-building.
+            Taught by an experienced teacher with a caring, structured approach.
+          </p>
+
+          <div class="mt-6 flex flex-col sm:flex-row gap-3 reveal">
+            <a href="#courses" class="btn btn-primary" data-cta>
+              <span aria-hidden="true">🪔</span>
+              <span>Explore & Buy Courses</span>
+            </a>
+            <button id="watchPreviewBtn" class="btn btn-ghost" type="button">
+              <span aria-hidden="true">▶</span>
+              <span>Watch a Preview</span>
+            </button>
+          </div>
+
+          <div class="mt-8 grid sm:grid-cols-3 gap-3 reveal">
+            <div class="glass rounded-2xl p-4">
+              <div class="text-sm font-semibold">Structured Lessons</div>
+              <div class="text-sm mt-1" style="color: var(--muted);">Short videos + notes + practice.</div>
+            </div>
+            <div class="glass rounded-2xl p-4">
+              <div class="text-sm font-semibold">Exam-Focused</div>
+              <div class="text-sm mt-1" style="color: var(--muted);">Board-style questions & answers.</div>
+            </div>
+            <div class="glass rounded-2xl p-4">
+              <div class="text-sm font-semibold">Doubt Support</div>
+              <div class="text-sm mt-1" style="color: var(--muted);">Ask via built-in chat.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="relative glass rounded-3xl p-5 overflow-hidden">
+            <div class="absolute -top-16 -right-16 size-48 rounded-full blur-2xl opacity-50" style="background: radial-gradient(circle, rgba(216,163,59,.45), transparent 70%);"></div>
+            <div class="absolute -bottom-16 -left-16 size-56 rounded-full blur-2xl opacity-40" style="background: radial-gradient(circle, rgba(14,165,162,.35), transparent 70%);"></div>
+
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-sm" style="color: var(--muted);">Featured Path</div>
+                <div class="text-xl font-semibold">Class 6–10 Mastery Pack</div>
+              </div>
+              <div class="floaty">
+                <div class="size-12 rounded-2xl grid place-items-center" style="background: rgba(216,163,59,.16); border: 1px solid rgba(216,163,59,.25);">📜</div>
+              </div>
+            </div>
+
+            <div class="mt-4 divider"></div>
+
+            <ul class="mt-4 space-y-3 text-sm" style="color: rgba(246,241,227,.86);">
+              <li class="flex gap-2"><span aria-hidden="true">✔</span> Hindi vyakaran: sandhi, samas, alankar, vakya vichar etc..</li>
+              <li class="flex gap-2"><span aria-hidden="true">✔</span> Sanskrit basics: vibhakti, dhatu-rup, shabd-rup etc..</li>
+              <li class="flex gap-2"><span aria-hidden="true">✔</span> Writing: essays, letter, unseen passages</li>
+              <li class="flex gap-2"><span aria-hidden="true">✔</span> Recorded lectures (view-only on this site)</li>
+            </ul>
+
+            <div class="mt-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div>
+                <div class="text-xs" style="color: var(--muted);">Starting at</div>
+                <div class="text-2xl font-semibold"><span class="align-top text-sm">₹</span><span data-price="starter">1000</span></div>
+              </div>
+              <a href="#courses" class="btn btn-primary w-full sm:w-auto">Buy Now</a>
+            </div>
+
+            <p class="mt-4 text-xs" style="color: rgba(246,241,227,.60);">
+              Note: This is a demo storefront. Payments & user accounts can be integrated later (Razorpay/Stripe + login).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COURSES -->
+    <section id="courses" class="pt-8 sm:pt-12 pb-10">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <div>
+          <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight reveal">Courses</h2>
+          <p class="mt-2 max-w-2xl reveal" style="color: var(--muted);">Choose a course, view details, and add to cart. Lessons are view-only on this site.</p>
+        </div>
+        <div class="flex gap-2 reveal">
+          <div class="inline-flex rounded-full p-1" style="background: rgba(246,241,227,.06); border: 1px solid rgba(246,241,227,.14);">
+            <button class="px-3 py-1.5 rounded-full text-sm" data-filter="all">All</button>
+            <button class="px-3 py-1.5 rounded-full text-sm" data-filter="hindi">Hindi</button>
+            <button class="px-3 py-1.5 rounded-full text-sm" data-filter="sanskrit">Sanskrit</button>
+            <button class="px-3 py-1.5 rounded-full text-sm" data-filter="combo">Combo</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5" id="courseGrid" aria-label="Course list"></div>
+
+
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="pt-8 sm:pt-12 pb-12">
+      <div class="grid lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-5">
+          <div class="glass rounded-3xl p-6 reveal">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight">About the Teacher</h2>
+                <p class="mt-2" style="color: var(--muted);">Experience, patience, and a deep love for language & culture.</p>
+              </div>
+              <div class="size-12 rounded-2xl grid place-items-center" style="background: rgba(14,165,162,.14); border: 1px solid rgba(14,165,162,.25);">👩‍🏫</div>
+            </div>
+
+            <div class="mt-5 divider"></div>
+
+            <ul class="mt-5 space-y-3 text-sm" style="color: rgba(246,241,227,.86);">
+              <li class="flex gap-2"><span aria-hidden="true">✦</span> Hello, I am Sunita Yadav the tutor!</li>
+              <li class="flex gap-2"><span aria-hidden="true">✦</span> I have nine years of experience in teaching Sanskrit, Hindi at school and personal tutoring.</li>
+              <li class="flex gap-2"><span aria-hidden="true">✦</span> Parents say I am very polite, patient, and friendly to students.</li>
+              <li class="flex gap-2"><span aria-hidden="true">✦</span> Qualifications: Shastri in Sanskrit and B.Ed in Hindi.</li>
+              <li class="flex gap-2"><span aria-hidden="true">✦</span> I have 9 years of teaching career. Hope you will like to study with me!</li>
+            </ul>
+
+            <div class="mt-6">
+              <button id="openContactFromAbout" class="btn btn-ghost" type="button">Contact & Schedule</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7">
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div class="glass rounded-3xl p-6 reveal">
+              <div class="text-sm" style="color: var(--muted);">Teaching Philosophy</div>
+              <div class="mt-2 text-lg font-semibold">Concept → Practice → Confidence</div>
+              <p class="mt-2 text-sm" style="color: rgba(246,241,227,.78);">We teach step-by-step: understand the rule, apply it in examples, and master through worksheets & exam patterns.</p>
+            </div>
+            <div class="glass rounded-3xl p-6 reveal">
+              <div class="text-sm" style="color: var(--muted);">For Class 6–10</div>
+              <div class="mt-2 text-lg font-semibold">Board-ready writing & grammar</div>
+              <p class="mt-2 text-sm" style="color: rgba(246,241,227,.78);">Essay, letter, grammar drills, literature Q/A—designed to score higher and write better.</p>
+            </div>
+          </div>
+
+          <div class="mt-5 glass rounded-3xl p-6 reveal">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-sm" style="color: var(--muted);">Testimonials</div>
+                <div class="text-2xl font-semibold">Parents & Students</div>
+              </div>
+              <div class="text-sm" style="color: var(--muted);">Swipe</div>
+            </div>
+
+            <div class="mt-4 overflow-hidden">
+              <div id="testimonials" class="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory" style="scrollbar-width: thin;">
+                <!-- injected -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="pt-8 sm:pt-12 pb-16">
+      <div class="grid lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-5">
+          <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight reveal">Contact</h2>
+          <p class="mt-2 reveal" style="color: var(--muted);">Send an email message, or chat instantly through the website.</p>
+
+          <div class="mt-5 glass rounded-3xl p-6 reveal">
+            <div class="text-sm" style="color: var(--muted);">Quick Details</div>
+            <div class="mt-3 space-y-2 text-sm">
+              <div class="flex items-center gap-2"><span aria-hidden="true">📧</span> <span id="contactEmail">sunita.nikjan@gmail.com</span></div>
+              <div class="flex items-center gap-2"><span aria-hidden="true">📍</span> Online across India</div>
+            </div>
+            <div class="mt-4">
+              <button id="openChatFromContact" class="btn btn-primary" type="button">Open Website Chat</button>
+            </div>
+          </div>
+
+          <div class="mt-5 text-xs" style="color: rgba(246,241,227,.55);">
+            Anti-piracy note: no website can guarantee 100% prevention of screen recording. We use view-only playback UI, watermarking, and deterrents; for strong protection, integrate login + server-side signed streaming.
+          </div>
+        </div>
+
+        <div class="lg:col-span-7">
+          <div class="glass rounded-3xl p-6 reveal">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="text-sm" style="color: var(--muted);">Email Form</div>
+                <div class="text-xl font-semibold">Ask a Question</div>
+              </div>
+              <div class="size-12 rounded-2xl grid place-items-center" style="background: rgba(216,163,59,.16); border: 1px solid rgba(216,163,59,.25);">✉️</div>
+            </div>
+
+            <form id="contactForm" class="mt-5 grid sm:grid-cols-2 gap-4" autocomplete="on">
+              <div class="sm:col-span-1">
+                <label class="text-sm" for="name">Name</label>
+                <input id="name" name="name" required class="mt-1 w-full rounded-2xl px-4 py-3 bg-white/5 border border-white/10 focus:border-white/20" placeholder="Your name" />
+              </div>
+              <div class="sm:col-span-1">
+                <label class="text-sm" for="phone">Phone (optional)</label>
+                <input id="phone" name="phone" class="mt-1 w-full rounded-2xl px-4 py-3 bg-white/5 border border-white/10 focus:border-white/20" placeholder="+91 …" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="text-sm" for="email">Email</label>
+                <input id="email" name="email" type="email" required class="mt-1 w-full rounded-2xl px-4 py-3 bg-white/5 border border-white/10 focus:border-white/20" placeholder="you@example.com" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="text-sm" for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required class="mt-1 w-full rounded-2xl px-4 py-3 bg-white/5 border border-white/10 focus:border-white/20" placeholder="Tell us the class, syllabus/board, and what you need help with."></textarea>
+              </div>
+              <div class="sm:col-span-2 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+                <button class="btn btn-primary" type="submit">Send Email</button>
+                <button class="btn btn-ghost" type="button" id="prefillDemo">Use Demo Details</button>
+              </div>
+            </form>
+
+            <div id="contactToast" class="hidden mt-4 rounded-2xl px-4 py-3 text-sm" style="background: rgba(14,165,162,.14); border: 1px solid rgba(14,165,162,.25);"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t" style="border-color: rgba(246,241,227,.10); background: rgba(0,0,0,.22);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="grid md:grid-cols-3 gap-6">
+        <div>
+          <div class="font-semibold">VidyaPath</div>
+          <div class="text-sm mt-2" style="color: var(--muted);">Culturally-inspired Hindi & Sanskrit learning for Class 6–10.</div>
+        </div>
+        <div class="text-sm">
+          <div class="font-semibold">Pages</div>
+          <div class="mt-2 flex flex-col gap-1" style="color: var(--muted);">
+            <a href="#home" class="hover:text-white">Home</a>
+            <a href="#courses" class="hover:text-white">Courses</a>
+            <a href="#about" class="hover:text-white">About</a>
+            <a href="#contact" class="hover:text-white">Contact</a>
+          </div>
+        </div>
+        <div class="text-sm">
+          <div class="font-semibold">Legal</div>
+          <div class="mt-2" style="color: var(--muted);">
+            © <span id="year"></span> VidyaPath. All rights reserved.<br/>
+            Content is for enrolled students only.
+          </div>
+        </div>
+      </div>
+      <div class="mt-8 divider"></div>
+      <div class="mt-5 text-xs" style="color: rgba(246,241,227,.55);">
+        Built as a single-page demo. Add real payments, login, and secure streaming for production.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Course Details Dialog -->
+  <dialog id="courseDialog" class="w-[min(960px,94vw)] rounded-3xl p-0 text-white" style="background: rgba(18,16,12,.98); border: 1px solid rgba(216,163,59,.22);">
+    <div class="p-5 sm:p-6">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <div class="text-sm" style="color: var(--muted);" id="courseDialogTag">Course</div>
+          <h3 class="text-2xl sm:text-3xl font-semibold" id="courseDialogTitle">Course title</h3>
+          <p class="mt-2 text-sm" style="color: rgba(246,241,227,.78);" id="courseDialogSubtitle">Subtitle</p>
+        </div>
+        <button class="btn btn-ghost" id="closeCourseDialog" type="button">Close</button>
+      </div>
+
+      <div class="mt-5 grid lg:grid-cols-12 gap-5">
+        <div class="lg:col-span-7">
+          <div class="relative rounded-3xl overflow-hidden border" style="border-color: rgba(246,241,227,.12); background: rgba(0,0,0,.25);">
+            <div class="absolute inset-0 pointer-events-none" id="watermark">
+              <div class="absolute inset-0 opacity-[0.12]"
+                   style="background-image: repeating-linear-gradient(135deg, rgba(246,241,227,.7) 0 1px, transparent 1px 18px);"></div>
+              <div class="absolute top-4 right-4 text-xs px-3 py-1 rounded-full" style="background: rgba(0,0,0,.45); border: 1px solid rgba(246,241,227,.18);">
+                View-only • Watermarked
+              </div>
+              <div class="absolute bottom-4 left-4 text-xs px-3 py-1 rounded-full" style="background: rgba(0,0,0,.45); border: 1px solid rgba(246,241,227,.18);">
+                VidyaPath • For enrolled students
+              </div>
+            </div>
+
+            <video id="courseVideo" class="w-full aspect-video" controls controlsList="nodownload noplaybackrate" disablePictureInPicture>
+              <source id="courseVideoSrc" src="" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          <div class="mt-3 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+            <div class="text-xs" style="color: rgba(246,241,227,.62);">
+              Tip: For stronger protection in production, use signed HLS streaming + login.
+            </div>
+            <button id="toggleTheatre" class="btn btn-ghost" type="button">Theatre Mode</button>
+          </div>
+
+          <div class="mt-5 glass rounded-3xl p-5">
+            <div class="text-sm" style="color: var(--muted);">What you’ll learn</div>
+            <ul id="courseDialogBullets" class="mt-3 space-y-2 text-sm"></ul>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="glass rounded-3xl p-5">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-sm" style="color: var(--muted);">Price</div>
+                <div class="text-3xl font-semibold" id="courseDialogPrice">₹0</div>
+              </div>
+              <div class="size-12 rounded-2xl grid place-items-center" style="background: rgba(216,163,59,.16); border: 1px solid rgba(216,163,59,.25);">🪙</div>
+            </div>
+
+            <div class="mt-4 divider"></div>
+
+            <div class="mt-4 text-sm" style="color: rgba(246,241,227,.80);">
+              <div class="flex items-center justify-between"><span>Access</span><span class="font-semibold">On-site only</span></div>
+              <div class="flex items-center justify-between mt-1"><span>Download</span><span class="font-semibold" style="color: rgba(246,241,227,.65);">Disabled (UI)</span></div>
+              <div class="flex items-center justify-between mt-1"><span>Works on</span><span class="font-semibold">Mobile + Desktop</span></div>
+            </div>
+
+            <div class="mt-5 flex flex-col gap-3">
+              <button id="addToCartFromDialog" class="btn btn-primary" type="button">Add to Cart</button>
+              <button id="buyNowFromDialog" class="btn btn-ghost" type="button">Buy Now (Demo)</button>
+            </div>
+
+            <div class="mt-5 text-xs" style="color: rgba(246,241,227,.60);">
+              After purchase, you can provide a login and only enrolled students can view full lessons.
+            </div>
+          </div>
+
+          <div class="mt-5 glass rounded-3xl p-5">
+            <div class="text-sm" style="color: var(--muted);">Course Outline</div>
+            <ol id="courseDialogOutline" class="mt-3 space-y-2 text-sm list-decimal list-inside" style="color: rgba(246,241,227,.82);"></ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 flex items-center justify-between">
+        <div class="text-xs" style="color: rgba(246,241,227,.55);">By continuing, you agree not to reproduce or share course content.</div>
+        <button class="btn btn-ghost" id="reportPiracyBtn" type="button">Report abuse</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Cart Dialog -->
+  <dialog id="cartDialog" class="w-[min(760px,94vw)] rounded-3xl p-0 text-white" style="background: rgba(18,16,12,.98); border: 1px solid rgba(216,163,59,.22);">
+    <div class="p-5 sm:p-6">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <div class="text-sm" style="color: var(--muted);">Checkout</div>
+          <h3 class="text-2xl sm:text-3xl font-semibold">Your Cart</h3>
+          <p class="mt-1 text-sm" style="color: rgba(246,241,227,.75);">Demo cart (no real payment yet). You can connect Razorpay/Stripe later.</p>
+        </div>
+        <button class="btn btn-ghost" id="closeCartDialog" type="button">Close</button>
+      </div>
+
+      <div class="mt-5 grid lg:grid-cols-12 gap-5">
+        <div class="lg:col-span-7">
+          <div id="cartItems" class="space-y-3"></div>
+          <div id="emptyCart" class="hidden glass rounded-3xl p-6 text-sm" style="color: rgba(246,241,227,.78);">Your cart is empty. Add a course from the Courses section.</div>
+        </div>
+        <div class="lg:col-span-5">
+          <div class="glass rounded-3xl p-5">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-sm" style="color: var(--muted);">Total</div>
+                <div class="text-3xl font-semibold" id="cartTotal">₹0</div>
+              </div>
+              <div class="size-12 rounded-2xl grid place-items-center" style="background: rgba(14,165,162,.14); border: 1px solid rgba(14,165,162,.25);">🧾</div>
+            </div>
+
+            <div class="mt-4 divider"></div>
+
+            <form id="checkoutForm" class="mt-4 space-y-3">
+              <div>
+                <label class="text-sm" for="studentClass">Student Class</label>
+                <select id="studentClass" class="mt-1 w-full rounded-2xl px-4 py-3 bg-white/5 border border-white/10 focus:border-white/20">
+                  <option>Class 6</option>
+                  <option>Class 7</option>
+                  <option>Class 8</option>
+                  <option>Class 9</option>
+                  <option>Class 10</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-sm" for="parentEmail">Email</label>
+                <input id="parentEmail" type="email" required class="mt-1 w-full rounded-2xl px-4 py-3 bg-white/5 border border-white/10 focus:border-white/20" placeholder="Receipt + access link" />
+              </div>
+              <button class="btn btn-primary w-full" type="submit">Proceed to Pay (Demo)</button>
+              <button class="btn btn-ghost w-full" type="button" id="clearCart">Clear Cart</button>
+            </form>
+
+            <div id="checkoutToast" class="hidden mt-4 rounded-2xl px-4 py-3 text-sm" style="background: rgba(216,163,59,.14); border: 1px solid rgba(216,163,59,.25);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Preview Dialog -->
+  <dialog id="previewDialog" class="w-[min(900px,94vw)] rounded-3xl p-0 text-white" style="background: rgba(18,16,12,.98); border: 1px solid rgba(216,163,59,.22);">
+    <div class="p-5 sm:p-6">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <div class="text-sm" style="color: var(--muted);">Preview</div>
+          <h3 class="text-2xl sm:text-3xl font-semibold">How Lessons Look</h3>
+          <p class="mt-1 text-sm" style="color: rgba(246,241,227,.75);">A short sample clip (placeholder) with watermark and view-only UI.</p>
+        </div>
+        <button class="btn btn-ghost" id="closePreviewDialog" type="button">Close</button>
+      </div>
+
+      <div class="mt-5 rounded-3xl overflow-hidden border" style="border-color: rgba(246,241,227,.12); background: rgba(0,0,0,.25);">
+        <div class="relative">
+          <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute inset-0 opacity-[0.12]" style="background-image: repeating-linear-gradient(135deg, rgba(216,163,59,.65) 0 1px, transparent 1px 18px);"></div>
+            <div class="absolute top-4 left-4 text-xs px-3 py-1 rounded-full" style="background: rgba(0,0,0,.45); border: 1px solid rgba(246,241,227,.18);">
+              VidyaPath Preview
+            </div>
+          </div>
+          <video id="previewVideo" class="w-full aspect-video" controls controlsList="nodownload noplaybackrate" disablePictureInPicture>
+            <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <div class="mt-4 text-xs" style="color: rgba(246,241,227,.60);">Replace this preview with your own hosted preview later.</div>
+    </div>
+  </dialog>
+
+  <!-- Report Dialog -->
+  <dialog id="reportDialog" class="w-[min(640px,94vw)] rounded-3xl p-0 text-white" style="background: rgba(18,16,12,.98); border: 1px solid rgba(216,163,59,.22);">
+    <div class="p-5 sm:p-6">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <div class="text-sm" style="color: var(--muted);">Safety</div>
+          <h3 class="text-2xl font-semibold">Report content misuse</h3>
+          <p class="mt-1 text-sm" style="color: rgba(246,241,227,.75);">Tell us where you saw unauthorized sharing.</p>
+        </div>
+        <button class="btn btn-ghost" id="closeReportDialog" type="button">Close</button>
+      </div>
+
+      <form id="reportForm" class="mt-5 space-y-3">
+        <div>
+          <label class="text-sm" for="reportWhere">Link / platform</label>
+          <input id="reportWhere" required class="mt-1 w-full rounded-2xl px-4 py-3 bg-white/5 border border-white/10 focus:border-white/20" placeholder="Paste the link or describe platform" />
+        </div>
+        <div>
+          <label class="text-sm" for="reportNotes">Notes</label>
+          <textarea id="reportNotes" rows="4" class="mt-1 w-full rounded-2xl px-4 py-3 bg-white/5 border border-white/10 focus:border-white/20" placeholder="Any details to help us" ></textarea>
+        </div>
+        <button class="btn btn-primary w-full" type="submit">Submit Report (Demo)</button>
+      </form>
+      <div id="reportToast" class="hidden mt-4 rounded-2xl px-4 py-3 text-sm" style="background: rgba(194,65,12,.14); border: 1px solid rgba(194,65,12,.25);"></div>
+    </div>
+  </dialog>
+
+  <!-- Chat Widget -->
+  <div class="fixed bottom-5 right-5 z-50">
+    <button id="chatFab" class="btn btn-primary chat-shadow" type="button" aria-haspopup="dialog" aria-controls="chatPanel">
+      <span aria-hidden="true">💬</span>
+      <span class="hidden sm:inline">Chat</span>
+    </button>
+
+    <div id="chatPanel" class="hidden mt-3 w-[min(380px,92vw)] rounded-3xl glass chat-shadow overflow-hidden" role="dialog" aria-modal="false" aria-label="Website chat">
+      <div class="px-4 py-3 flex items-center justify-between" style="background: rgba(0,0,0,.25); border-bottom: 1px solid rgba(246,241,227,.10);">
+        <div>
+          <div class="text-sm font-semibold">VidyaPath Chat</div>
+          <div class="text-xs" style="color: var(--muted);">Typically replies within a few hours</div>
+        </div>
+        <div class="flex gap-2">
+          <button id="chatMin" class="btn btn-ghost" type="button">Minimize</button>
+        </div>
+      </div>
+
+      <div id="chatBody" class="max-h-[320px] overflow-auto px-4 py-3 space-y-3"></div>
+
+      <form id="chatForm" class="p-3" style="border-top: 1px solid rgba(246,241,227,.10);">
+        <div class="flex gap-2">
+          <input id="chatInput" class="flex-1 rounded-2xl px-4 py-3 bg-white/5 border border-white/10 focus:border-white/20" placeholder="Ask about class, course, price…" required />
+          <button class="btn btn-primary" type="submit">Send</button>
+        </div>
+        <div class="mt-2 text-[11px]" style="color: rgba(246,241,227,.55);">Demo chat runs on-device. Connect WhatsApp/Telegram or a real support inbox later.</div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // ----------------------------
+    // Data
+    // ----------------------------
+    const CONTACT_EMAIL = 'sunita.nikjan@gmail.com';
+
+    const COURSES = [
+      // HINDI (Class 6–10)
+      {
+        id: 'h6',
+        category: 'hindi',
+        level: 'Class 6',
+        title: 'Hindi (Class 6)',
+        subtitle: 'Recorded lectures (view-only): basics of vyakaran + writing.',
+        price: 1000,
+        thumb: '📙',
+        accent: 'gold',
+        bullets: [
+          'Sangya, Sarvnam, Visheshan, Kriya (easy rules + examples)',
+          'Vakya rachna & shuddh lekhan',
+          'Writing: simple paragraphs & basics',
+          'Recorded lectures (view-only on this site)'
+        ],
+        outline: ['Introduction', 'Grammar basics', 'Sentence building', 'Revision'],
+        previewSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+      },
+      {
+        id: 'h7',
+        category: 'hindi',
+        level: 'Class 7',
+        title: 'Hindi (Class 7)',
+        subtitle: 'Recorded lectures (view-only): grammar + literature foundations.',
+        price: 1000,
+        thumb: '🖋️',
+        accent: 'terracotta',
+        bullets: [
+          'Vyakaran fundamentals with examples',
+          'Reading & explanation of chapters',
+          'Writing: letter/application basics',
+          'Recorded lectures (view-only on this site)'
+        ],
+        outline: ['Grammar', 'Literature', 'Writing', 'Revision'],
+        previewSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+      },
+      {
+        id: 'h8',
+        category: 'hindi',
+        level: 'Class 8',
+        title: 'Hindi (Class 8)',
+        subtitle: 'Recorded lectures (view-only): writing improvement + grammar clarity.',
+        price: 1000,
+        thumb: '📘',
+        accent: 'gold',
+        bullets: [
+          'Essay & letter writing formats',
+          'Unseen passage approach',
+          'Literature Q/A key points',
+          'Recorded lectures (view-only on this site)'
+        ],
+        outline: ['Writing formats', 'Comprehension', 'Literature Q/A', 'Revision'],
+        previewSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+      },
+      {
+        id: 'h9',
+        category: 'hindi',
+        level: 'Class 9',
+        title: 'Hindi (Class 9)',
+        subtitle: 'Recorded lectures (view-only): grammar + answer writing.',
+        price: 1000,
+        thumb: '🏛️',
+        accent: 'terracotta',
+        bullets: [
+          'Grammar revision with examples',
+          'Literature explanation + Q/A',
+          'Writing: long answers and formats',
+          'Recorded lectures (view-only on this site)'
+        ],
+        outline: ['Grammar', 'Literature', 'Writing', 'Exam prep'],
+        previewSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+      },
+      {
+        id: 'h10',
+        category: 'hindi',
+        level: 'Class 10',
+        title: 'Hindi (Class 10)',
+        subtitle: 'Recorded lectures (view-only): board-focused writing + grammar.',
+        price: 1000,
+        thumb: '🎯',
+        accent: 'gold',
+        bullets: [
+          'Board-style answer writing structure',
+          'Grammar revision modules',
+          'Important writing formats',
+          'Recorded lectures (view-only on this site)'
+        ],
+        outline: ['Writing skills', 'Grammar revision', 'Literature Q/A', 'Final revision'],
+        previewSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+      },
+
+      // SANSKRIT (Class 6–10)
+      {
+        id: 's6',
+        category: 'sanskrit',
+        level: 'Class 6',
+        title: 'Sanskrit (Class 6)',
+        subtitle: 'Recorded lectures (view-only): foundations + simple translations.',
+        price: 1000,
+        thumb: '🪷',
+        accent: 'teal',
+        bullets: [
+          'Swar & vyanjan pronunciation',
+          'Basic shabd-rup introduction',
+          'Simple sentence making',
+          'Recorded lectures (view-only on this site)'
+        ],
+        outline: ['Foundations', 'Shabd-rup', 'Sentences', 'Revision'],
+        previewSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+      },
+      {
+        id: 's7',
+        category: 'sanskrit',
+        level: 'Class 7',
+        title: 'Sanskrit (Class 7)',
+        subtitle: 'Recorded lectures (view-only): vibhakti basics + translation.',
+        price: 1000,
+        thumb: '🕉️',
+        accent: 'gold',
+        bullets: [
+          'Vibhakti introduction with examples',
+          'Shabd-rup practice',
+          'Simple translation practice',
+          'Recorded lectures (view-only on this site)'
+        ],
+        outline: ['Vibhakti', 'Rup practice', 'Translation', 'Revision'],
+        previewSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+      },
+      {
+        id: 's8',
+        category: 'sanskrit',
+        level: 'Class 8',
+        title: 'Sanskrit (Class 8)',
+        subtitle: 'Recorded lectures (view-only): dhatu-rup entry + grammar clarity.',
+        price: 1000,
+        thumb: '📗',
+        accent: 'teal',
+        bullets: [
+          'Dhatu-rup basic patterns',
+          'Vibhakti usage in sentences',
+          'Translation: Sanskrit ↔ Hindi',
+          'Recorded lectures (view-only on this site)'
+        ],
+        outline: ['Dhatu-rup', 'Vibhakti', 'Translation', 'Revision'],
+        previewSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+      },
+      {
+        id: 's9',
+        category: 'sanskrit',
+        level: 'Class 9',
+        title: 'Sanskrit (Class 9)',
+        subtitle: 'Recorded lectures (view-only): vibhakti + dhatu-rup mastery.',
+        price: 1000,
+        thumb: '📜',
+        accent: 'gold',
+        bullets: [
+          'Vibhakti tables and application',
+          'Dhatu-rup practice (common verbs)',
+          'Translation and grammar questions',
+          'Recorded lectures (view-only on this site)'
+        ],
+        outline: ['Vibhakti', 'Dhatu-rup', 'Translation', 'Exam prep'],
+        previewSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+      },
+      {
+        id: 's10',
+        category: 'sanskrit',
+        level: 'Class 10',
+        title: 'Sanskrit (Class 10)',
+        subtitle: 'Recorded lectures (view-only): board-focused grammar + translation.',
+        price: 1000,
+        thumb: '🏺',
+        accent: 'teal',
+        bullets: [
+          'Board-style translation approach',
+          'Vibhakti + dhatu-rup revision',
+          'Important grammar questions',
+          'Recorded lectures (view-only on this site)'
+        ],
+        outline: ['Grammar revision', 'Translation', 'Practice questions', 'Final revision'],
+        previewSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+      },
+
+      // COMBO (Hindi + Sanskrit) Class 6–10
+      {
+        id: 'c6',
+        category: 'combo',
+        level: 'Class 6',
+        title: 'Hindi + Sanskrit (Class 6)',
+        subtitle: 'Recorded lectures (view-only). Live classes: coming soon.',
+        price: 1750,
+        thumb: '🎓',
+        accent: 'teal',
+        bullets: [
+          'Hindi basics: vyakaran + simple writing',
+          'Sanskrit basics: pronunciation + simple sentences',
+          'Recorded lectures (view-only on this site)',
+          'Live classes: Coming soon'
+        ],
+        outline: ['Hindi module', 'Sanskrit module', 'Revision', 'Next steps'],
+        previewSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+      },
+      {
+        id: 'c7',
+        category: 'combo',
+        level: 'Class 7',
+        title: 'Hindi + Sanskrit (Class 7)',
+        subtitle: 'Recorded lectures (view-only). Live classes: coming soon.',
+        price: 1750,
+        thumb: '🪔',
+        accent: 'gold',
+        bullets: [
+          'Hindi grammar + literature basics',
+          'Sanskrit vibhakti basics + rup practice',
+          'Recorded lectures (view-only on this site)',
+          'Live classes: Coming soon'
+        ],
+        outline: ['Hindi module', 'Sanskrit module', 'Revision', 'Next steps'],
+        previewSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+      },
+      {
+        id: 'c8',
+        category: 'combo',
+        level: 'Class 8',
+        title: 'Hindi + Sanskrit (Class 8)',
+        subtitle: 'Recorded lectures (view-only). Live classes: coming soon.',
+        price: 1750,
+        thumb: '📚',
+        accent: 'terracotta',
+        bullets: [
+          'Hindi: writing formats + comprehension',
+          'Sanskrit: dhatu-rup entry + translation',
+          'Recorded lectures (view-only on this site)',
+          'Live classes: Coming soon'
+        ],
+        outline: ['Hindi module', 'Sanskrit module', 'Revision', 'Next steps'],
+        previewSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+      },
+      {
+        id: 'c9',
+        category: 'combo',
+        level: 'Class 9',
+        title: 'Hindi + Sanskrit (Class 9)',
+        subtitle: 'Recorded lectures (view-only). Live classes: coming soon.',
+        price: 1750,
+        thumb: '🧠',
+        accent: 'teal',
+        bullets: [
+          'Hindi: grammar + answer writing',
+          'Sanskrit: vibhakti + dhatu-rup mastery',
+          'Recorded lectures (view-only on this site)',
+          'Live classes: Coming soon'
+        ],
+        outline: ['Hindi module', 'Sanskrit module', 'Exam prep', 'Final revision'],
+        previewSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+      },
+      {
+        id: 'c10',
+        category: 'combo',
+        level: 'Class 10',
+        title: 'Hindi + Sanskrit (Class 10)',
+        subtitle: 'Recorded lectures (view-only). Live classes: coming soon.',
+        price: 1750,
+        thumb: '🏆',
+        accent: 'gold',
+        bullets: [
+          'Hindi: board writing + grammar revision',
+          'Sanskrit: board translation + grammar revision',
+          'Recorded lectures (view-only on this site)',
+          'Live classes: Coming soon'
+        ],
+        outline: ['Hindi module', 'Sanskrit module', 'Board prep', 'Final revision'],
+        previewSrc: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+      }
+    ];
+
+    const TESTIMONIALS = [
+      {
+        name: 'Parent (Class 8)',
+        text: 'My child’s writing improved a lot. The formats and practice sheets made exams much easier.'
+      },
+      {
+        name: 'Student (Class 9)',
+        text: 'Sanskrit dhatu-rup finally started making sense. The tables and revision are very clear.'
+      },
+      {
+        name: 'Parent (Class 10)',
+        text: 'Very disciplined teaching and regular practice. The board booster helped build confidence.'
+      },
+      {
+        name: 'Student (Class 6)',
+        text: 'I like the simple examples. Homework is small and easy to finish.'
+      }
+    ];
+
+    // ----------------------------
+    // Helpers
+    // ----------------------------
+    const fmtINR = (n) => `₹${n.toLocaleString('en-IN')}`;
+
+    function $(sel, root=document){ return root.querySelector(sel); }
+    function $all(sel, root=document){ return [...root.querySelectorAll(sel)]; }
+
+    function openDialog(d){
+      if (!d) return;
+      if (typeof d.showModal === 'function') d.showModal();
+      else d.setAttribute('open','');
+    }
+    function closeDialog(d){
+      if (!d) return;
+      if (typeof d.close === 'function') d.close();
+      else d.removeAttribute('open');
+    }
+
+    // ----------------------------
+    // Rendering
+    // ----------------------------
+    let activeFilter = 'all';
+    let selectedCourseId = null;
+
+    function accentStyles(accent){
+      if (accent === 'teal') return {
+        badgeBg: 'rgba(14,165,162,.14)',
+        badgeBorder: 'rgba(14,165,162,.25)',
+        glow: 'rgba(14,165,162,.35)'
+      };
+      if (accent === 'terracotta') return {
+        badgeBg: 'rgba(194,65,12,.14)',
+        badgeBorder: 'rgba(194,65,12,.25)',
+        glow: 'rgba(194,65,12,.35)'
+      };
+      return {
+        badgeBg: 'rgba(216,163,59,.14)',
+        badgeBorder: 'rgba(216,163,59,.25)',
+        glow: 'rgba(216,163,59,.38)'
+      };
+    }
+
+    function renderCourses(){
+      const grid = $('#courseGrid');
+      const filtered = COURSES.filter(c => activeFilter === 'all' ? true : c.category === activeFilter);
+      grid.innerHTML = filtered.map(c => {
+        const a = accentStyles(c.accent);
+        return `
+        <article class="glass rounded-3xl p-5 relative overflow-hidden reveal" data-course="${c.id}">
+          <div class="absolute -top-16 -right-16 size-44 rounded-full blur-2xl opacity-40" style="background: radial-gradient(circle, ${a.glow}, transparent 70%);"></div>
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="inline-flex items-center gap-2 text-xs px-3 py-1 rounded-full border" style="background:${a.badgeBg}; border-color:${a.badgeBorder};">
+                <span>${c.category.toUpperCase()}</span>
+                <span style="color: rgba(246,241,227,.7);">•</span>
+                <span>${c.level}</span>
+              </div>
+              <h3 class="mt-3 text-xl font-semibold">${c.title}</h3>
+              <p class="mt-2 text-sm" style="color: rgba(246,241,227,.75);">${c.subtitle}</p>
+            </div>
+            <div class="shrink-0">
+              <div class="size-12 rounded-2xl grid place-items-center" style="background: rgba(246,241,227,.06); border: 1px solid rgba(246,241,227,.12);">${c.thumb}</div>
+            </div>
+          </div>
+
+          <div class="mt-4 flex items-center justify-between">
+            <div>
+              <div class="text-xs" style="color: rgba(246,241,227,.60);">Price</div>
+              <div class="text-2xl font-semibold">${fmtINR(c.price)}</div>
+            </div>
+            <div class="text-xs text-right" style="color: rgba(246,241,227,.60);">
+              Recorded lectures • View-only
+            </div>
+          </div>
+
+          <div class="mt-4 flex gap-2">
+            <button class="btn btn-primary flex-1" type="button" data-view="${c.id}">View Details</button>
+            <button class="btn btn-ghost" type="button" data-add="${c.id}">Add</button>
+          </div>
+        </article>`;
+      }).join('');
+
+      // re-run reveal observer registration for new nodes
+      setupReveal();
+    }
+
+    function renderTestimonials(){
+      const el = $('#testimonials');
+      el.innerHTML = TESTIMONIALS.map(t => `
+        <figure class="snap-start shrink-0 w-[min(360px,86vw)] glass rounded-3xl p-5">
+          <blockquote class="text-sm" style="color: rgba(246,241,227,.80);">“${t.text}”</blockquote>
+          <figcaption class="mt-3 text-xs" style="color: rgba(246,241,227,.60);">— ${t.name}</figcaption>
+        </figure>
+      `).join('');
+    }
+
+    // ----------------------------
+    // Cart
+    // ----------------------------
+    const CART_KEY = 'vidyapath_cart_v1';
+    let cart = [];
+
+    function loadCart(){
+      try{
+        cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+        if (!Array.isArray(cart)) cart = [];
+      }catch{ cart = []; }
+    }
+    function saveCart(){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
+    function cartCount(){ return cart.reduce((a,i)=>a+(i.qty||1),0); }
+    function cartTotal(){
+      return cart.reduce((sum, item) => {
+        const course = COURSES.find(c=>c.id===item.id);
+        return sum + (course ? course.price * (item.qty||1) : 0);
+      }, 0);
+    }
+
+    function addToCart(id){
+      const found = cart.find(i=>i.id===id);
+      if (found) found.qty = (found.qty||1)+1;
+      else cart.push({id, qty:1});
+      saveCart();
+      updateCartUI();
+      toast($('#checkoutToast'), 'Added to cart. Open Cart to proceed.');
+    }
+
+    function removeFromCart(id){
+      cart = cart.filter(i=>i.id!==id);
+      saveCart();
+      updateCartUI();
+    }
+
+    function updateCartUI(){
+      const c = cartCount();
+      $('#cartCount').textContent = c;
+      $('#cartCount2').textContent = c;
+      const total = cartTotal();
+      $('#cartTotal').textContent = fmtINR(total);
+
+      const itemsEl = $('#cartItems');
+      const empty = $('#emptyCart');
+
+      if (!cart.length){
+        itemsEl.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+
+      itemsEl.innerHTML = cart.map(item => {
+        const course = COURSES.find(c=>c.id===item.id);
+        if (!course) return '';
+        const a = accentStyles(course.accent);
+        const line = course.price * (item.qty||1);
+        return `
+          <div class="glass rounded-3xl p-4 border" style="border-color: rgba(246,241,227,.10);">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="inline-flex items-center gap-2 text-xs px-3 py-1 rounded-full border" style="background:${a.badgeBg}; border-color:${a.badgeBorder};">
+                  <span>${course.category.toUpperCase()}</span>
+                  <span style="color: rgba(246,241,227,.7);">•</span>
+                  <span>${course.level}</span>
+                </div>
+                <div class="mt-2 font-semibold">${course.title}</div>
+                <div class="text-xs mt-1" style="color: rgba(246,241,227,.62);">Qty: ${item.qty||1} • ${fmtINR(course.price)} each</div>
+              </div>
+              <div class="text-right">
+                <div class="font-semibold">${fmtINR(line)}</div>
+                <button class="mt-2 text-xs px-3 py-1 rounded-full border" style="border-color: rgba(246,241,227,.16); background: rgba(246,241,227,.06);" data-remove="${course.id}">Remove</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      $all('[data-remove]').forEach(btn => btn.addEventListener('click', () => removeFromCart(btn.dataset.remove)));
+    }
+
+    // ----------------------------
+    // Course dialog
+    // ----------------------------
+    function openCourse(id){
+      const course = COURSES.find(c=>c.id===id);
+      if (!course) return;
+      selectedCourseId = id;
+
+      $('#courseDialogTag').textContent = `${course.category.toUpperCase()} • ${course.level}`;
+      $('#courseDialogTitle').textContent = course.title;
+      $('#courseDialogSubtitle').textContent = course.subtitle;
+      $('#courseDialogPrice').textContent = fmtINR(course.price);
+
+      const bullets = $('#courseDialogBullets');
+      bullets.innerHTML = course.bullets.map(b => `<li class="flex gap-2"><span aria-hidden="true">✓</span><span>${b}</span></li>`).join('');
+
+      const outline = $('#courseDialogOutline');
+      outline.innerHTML = course.outline.map(x => `<li>${x}</li>`).join('');
+
+      // Load preview video (placeholder)
+      const src = $('#courseVideoSrc');
+      src.src = course.previewSrc;
+      const v = $('#courseVideo');
+      v.load();
+      v.currentTime = 0;
+
+      // Update watermark with timestamp (deterrent)
+      const stamp = new Date().toLocaleString();
+      $('#watermark').querySelector('.absolute.bottom-4.left-4').textContent = `VidyaPath • ${stamp}`;
+
+      openDialog($('#courseDialog'));
+    }
+
+    // ----------------------------
+    // Toast
+    // ----------------------------
+    let toastTimer;
+    function toast(el, msg){
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.remove('hidden');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=> el.classList.add('hidden'), 3200);
+    }
+
+    // ----------------------------
+    // Reveal on scroll
+    // ----------------------------
+    let revealObserver;
+    function setupReveal(){
+      if (revealObserver) revealObserver.disconnect();
+      revealObserver = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if (e.isIntersecting) e.target.classList.add('show'); });
+      }, {threshold: 0.12});
+      $all('.reveal').forEach(el=>revealObserver.observe(el));
+    }
+
+    // ----------------------------
+    // Routing active nav
+    // ----------------------------
+    function setupActiveNav(){
+      const sections = ['home','courses','about','contact'].map(id => document.getElementById(id));
+      const links = $all('[data-route]');
+      const obs = new IntersectionObserver((entries)=>{
+        const vis = entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+        if (!vis) return;
+        const id = vis.target.id;
+        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
+      }, {rootMargin: "-30% 0px -60% 0px", threshold: [0.08,0.2,0.35]});
+      sections.forEach(s => s && obs.observe(s));
+    }
+
+    // ----------------------------
+    // Chat (on-device demo)
+    // ----------------------------
+    const CHAT_KEY = 'vidyapath_chat_v1';
+    let chat = [];
+
+    function loadChat(){
+      try{
+        chat = JSON.parse(localStorage.getItem(CHAT_KEY) || '[]');
+        if (!Array.isArray(chat)) chat = [];
+      }catch{ chat = []; }
+    }
+    function saveChat(){ localStorage.setItem(CHAT_KEY, JSON.stringify(chat)); }
+
+    function renderChat(){
+      const body = $('#chatBody');
+      if (!chat.length){
+        body.innerHTML = `
+          <div class="text-sm" style="color: rgba(246,241,227,.78);">Namaste! Tell us your class (6–10) and which subject you need help with.</div>
+          <div class="text-xs mt-2" style="color: rgba(246,241,227,.55);">Example: “Class 9 Sanskrit dhatu-rup important topics?”</div>
+        `;
+        return;
+      }
+      body.innerHTML = chat.map(m => {
+        const isUser = m.role === 'user';
+        return `
+          <div class="flex ${isUser ? 'justify-end' : 'justify-start'}">
+            <div class="max-w-[85%] rounded-2xl px-4 py-3 text-sm border" style="
+              background: ${isUser ? 'rgba(216,163,59,.14)' : 'rgba(246,241,227,.06)'};
+              border-color: ${isUser ? 'rgba(216,163,59,.25)' : 'rgba(246,241,227,.12)'};
+            ">
+              <div>${escapeHTML(m.text)}</div>
+              <div class="mt-1 text-[10px]" style="color: rgba(246,241,227,.55);">${new Date(m.ts).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function escapeHTML(str){
+      return String(str).replace(/[&<>"]+/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s[0]]));
+    }
+
+    function botReply(userText){
+      const t = userText.toLowerCase();
+      let reply = 'Thank you! Share your class and subject (Hindi/Sanskrit), and we will guide you.';
+
+      if (t.includes('price') || t.includes('fees') || t.includes('cost')) {
+        reply = 'Course prices currently start from ₹1000. Open Courses → select a course to see full details.';
+      } else if (t.includes('class 10') && t.includes('hindi')) {
+        reply = 'For Class 10 Hindi, the Board Booster pack is best: writing + grammar revision + sample papers.';
+      } else if (t.includes('class 9') && t.includes('sanskrit')) {
+        reply = 'For Class 9 Sanskrit, start with vibhakti + dhatu-rup practice. Our Grammar Mastery course is a good fit.';
+      } else if (t.includes('combo') || (t.includes('hindi') && t.includes('sanskrit'))) {
+        reply = 'If you want both subjects, the Combo Pack (Class 8–10) gives a structured plan for Hindi + Sanskrit.';
+      } else if (t.includes('demo') || t.includes('trial') || t.includes('preview')) {
+        reply = 'You can watch the preview from the Home section (“Watch a Preview”).';
+      }
+
+      chat.push({role:'bot', text: reply, ts: Date.now()});
+      saveChat();
+      renderChat();
+    }
+
+    function openChat(){
+      $('#chatPanel').classList.remove('hidden');
+      $('#chatInput').focus();
+    }
+    function closeChat(){
+      $('#chatPanel').classList.add('hidden');
+    }
+
+    // ----------------------------
+    // Anti-copy deterrents (best-effort only)
+    // ----------------------------
+    function enableDeterrents(){
+      document.addEventListener('contextmenu', (e) => {
+        // allow inside inputs/textarea
+        const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+        if (tag === 'input' || tag === 'textarea') return;
+        e.preventDefault();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        // Block common save/dev shortcuts (deterrent only)
+        const k = e.key.toLowerCase();
+        if ((e.ctrlKey || e.metaKey) && ['s','p','u'].includes(k)) e.preventDefault();
+        if (e.key === 'F12') e.preventDefault();
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i','j','c'].includes(k)) e.preventDefault();
+      });
+
+      // disable drag start for images/cards
+      document.addEventListener('dragstart', (e)=> e.preventDefault());
+    }
+
+    // ----------------------------
+    // Init & Events
+    // ----------------------------
+    function init(){
+      $('#year').textContent = new Date().getFullYear();
+      $('#contactEmail').textContent = CONTACT_EMAIL;
+
+      loadCart();
+      updateCartUI();
+
+      loadChat();
+      renderChat();
+
+      renderTestimonials();
+      renderCourses();
+      setupReveal();
+      setupActiveNav();
+      enableDeterrents();
+
+      // Mobile menu
+      $('#menuBtn').addEventListener('click', ()=>{
+        const mm = $('#mobileMenu');
+        const open = !mm.classList.contains('hidden');
+        mm.classList.toggle('hidden');
+        $('#menuBtn').setAttribute('aria-expanded', String(!open));
+      });
+
+      // Filters
+      $all('[data-filter]').forEach(btn => {
+        btn.addEventListener('click', ()=>{
+          activeFilter = btn.dataset.filter;
+          $all('[data-filter]').forEach(b=> b.style.background = 'transparent');
+          btn.style.background = 'rgba(216,163,59,.14)';
+          renderCourses();
+        });
+      });
+      // Default filter highlight
+      const allBtn = $('[data-filter="all"]');
+      if (allBtn) allBtn.style.background = 'rgba(216,163,59,.14)';
+
+      // Course grid actions
+      document.addEventListener('click', (e)=>{
+        const viewBtn = e.target.closest('[data-view]');
+        if (viewBtn){
+          openCourse(viewBtn.dataset.view);
+          return;
+        }
+        const addBtn = e.target.closest('[data-add]');
+        if (addBtn){
+          addToCart(addBtn.dataset.add);
+          return;
+        }
+      });
+
+      // Course dialog controls
+      $('#closeCourseDialog').addEventListener('click', ()=>{
+        const v = $('#courseVideo');
+        v.pause();
+        closeDialog($('#courseDialog'));
+      });
+      $('#addToCartFromDialog').addEventListener('click', ()=>{
+        if (selectedCourseId) addToCart(selectedCourseId);
+      });
+      $('#buyNowFromDialog').addEventListener('click', ()=>{
+        if (selectedCourseId) addToCart(selectedCourseId);
+        openDialog($('#cartDialog'));
+        closeDialog($('#courseDialog'));
+      });
+      $('#toggleTheatre').addEventListener('click', ()=>{
+        $('#courseDialog').classList.toggle('w-[min(1100px,96vw)]');
+      });
+      $('#reportPiracyBtn').addEventListener('click', ()=> openDialog($('#reportDialog')));
+
+      // Cart dialog
+      $('#openCartBtn').addEventListener('click', ()=> openDialog($('#cartDialog')));
+      $('#mobileCartBtn').addEventListener('click', ()=> openDialog($('#cartDialog')));
+      $('#closeCartDialog').addEventListener('click', ()=> closeDialog($('#cartDialog')));
+      $('#clearCart').addEventListener('click', ()=>{
+        cart = [];
+        saveCart();
+        updateCartUI();
+        toast($('#checkoutToast'), 'Cart cleared.');
+      });
+
+      $('#checkoutForm').addEventListener('submit', (e)=>{
+        e.preventDefault();
+        if (!cart.length){
+          toast($('#checkoutToast'), 'Add a course first.');
+          return;
+        }
+        toast($('#checkoutToast'), 'Demo checkout: connect Razorpay/Stripe + login for real purchases.');
+      });
+
+      // Preview dialog
+      $('#watchPreviewBtn').addEventListener('click', ()=> openDialog($('#previewDialog')));
+      $('#closePreviewDialog').addEventListener('click', ()=>{
+        $('#previewVideo').pause();
+        closeDialog($('#previewDialog'));
+      });
+
+      // Report form
+      $('#closeReportDialog').addEventListener('click', ()=> closeDialog($('#reportDialog')));
+      $('#reportForm').addEventListener('submit', (e)=>{
+        e.preventDefault();
+        toast($('#reportToast'), 'Report submitted (demo). We will review and take action.');
+        e.target.reset();
+      });
+
+      // Contact shortcuts
+      $('#openChatFromCourses').addEventListener('click', openChat);
+      $('#openChatFromContact').addEventListener('click', openChat);
+      $('#openContactFromAbout').addEventListener('click', ()=> location.hash = '#contact');
+
+      // Contact form: opens mailto
+      $('#contactForm').addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const name = fd.get('name');
+        const phone = fd.get('phone');
+        const email = fd.get('email');
+        const message = fd.get('message');
+
+        const subject = encodeURIComponent(`VidyaPath Inquiry — ${name}`);
+        const body = encodeURIComponent(
+`Name: ${name}\nEmail: ${email}\nPhone: ${phone || '-'}\n\nMessage:\n${message}\n\n( Sent from VidyaPath website )`
+        );
+
+        const mailto = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+        window.location.href = mailto;
+        toast($('#contactToast'), 'Opening your email app… If it doesn\'t open, please email us directly.');
+      });
+
+      $('#prefillDemo').addEventListener('click', ()=>{
+        $('#name').value = 'Aarav';
+        $('#phone').value = '+91 98xxxxxx12';
+        $('#email').value = 'aarav.parent@example.com';
+        $('#message').value = 'Hello! My child is in Class 9. We need help in Sanskrit grammar (vibhakti + dhatu-rup). Which course should we buy?';
+      });
+
+      // Chat open/close
+      $('#chatFab').addEventListener('click', ()=>{
+        const panel = $('#chatPanel');
+        if (panel.classList.contains('hidden')) openChat();
+        else closeChat();
+      });
+      $('#chatMin').addEventListener('click', closeChat);
+
+      $('#chatForm').addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const input = $('#chatInput');
+        const text = input.value.trim();
+        if (!text) return;
+        chat.push({role:'user', text, ts: Date.now()});
+        saveChat();
+        input.value = '';
+        renderChat();
+        setTimeout(()=> botReply(text), 450);
+      });
+
+      // Close dialogs on backdrop click
+      [$('dialog#courseDialog'), $('dialog#cartDialog'), $('dialog#previewDialog'), $('dialog#reportDialog')].forEach(d => {
+        d.addEventListener('click', (e)=>{
+          const rect = d.getBoundingClientRect();
+          const inDialog = rect.top <= e.clientY && e.clientY <= rect.top + rect.height && rect.left <= e.clientX && e.clientX <= rect.left + rect.width;
+          // If click is on the backdrop (outside content), close
+          if (e.target === d && !inDialog) d.close();
+        });
+      });
+
+      // “Buy course” CTA smooth close mobile menu
+      $all('a[href^="#"]').forEach(a => a.addEventListener('click', ()=>{
+        $('#mobileMenu').classList.add('hidden');
+        $('#menuBtn').setAttribute('aria-expanded','false');
+      }));
+    }
+
+    init();
+  </script>
+</body>
+</html>
